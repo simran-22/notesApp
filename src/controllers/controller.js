@@ -62,10 +62,52 @@ const getNoteById = async (req, res) => {
   }
 }
 
+// 3. Get id notes
+
+const updateNote = async (req, res) => {
+  const idse = req.params.id;
+  try {
+    const { title, content } = req.body;
+
+    const notemila = await Note.findByIdAndUpdate(idse, { title, content },
+      { new: true }
+    );
+
+    if (!notemila) {
+      return res.status(404).json({ message: "Nai mila" });
+    }
+    return res.status(200).json({ message: "Mil gya", note: notemila })
+
+
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "server error" })
+  }
+}
+
+// 4. Get delete notes
+
+const deleteNote = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deletmila = await Note.findByIdAndDelete(id)
+    if (!deletmila) {
+      return res.status(404).json({ message: "nai mil raha" })
+    }
+    return res.status(200).json({ message: "Mil gya note delete krne ko", note: deletmila })
+
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ message: "Server eror" })
+  }
+
+
+}
+
 module.exports = {
   createNote,
   getNotes,
-  getNoteById
-  // updateNote,
-  // deleteNote
+  getNoteById,
+  updateNote,
+  deleteNote,
 };

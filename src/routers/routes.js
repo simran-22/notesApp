@@ -4,9 +4,9 @@ const router = express.Router();
 const {
   createNote,
   getNotes,
-  getNoteById
-  // updateNote,
-  // deleteNote
+  getNoteById,
+  updateNote,
+  deleteNote
 } = require("../controllers/controller.js")
 
 router.post("/notes", createNote)
@@ -15,8 +15,8 @@ router.get("/notes", getNotes)
 
 router.get("/notes/:id", getNoteById)
 
-// router.put("./notes", updateNote)
+router.put("/notes/:id", updateNote)
 
-// router.delete("./notes", deleteNote)
+router.delete("/notes/:id", deleteNote)
 
 module.exports = router;
